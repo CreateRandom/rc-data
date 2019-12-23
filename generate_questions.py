@@ -322,8 +322,9 @@ def ParseHtml(story, corpus):
           '//*[contains(@class, "cnnStryHghLght")]//li[%s]' % he,
           '//*[@id="cnnHeaderRightCol"]//li[%s]' % he
       ],
+      # Changed to accomodate changes on DM page
       'dailymail': [
-          '//h1/following-sibling::ul//li'
+          '//h2[not(starts-with(text(), "RELATED ARTICLES"))]/following-sibling::ul//li'
       ]
   }
 
@@ -655,11 +656,11 @@ def DownloadMapper(t):
 
   url, corpus = t
 
-  url_hash = Hashhex(url)
-
-  mapping_filename = '%s/entities/%s.txt' % (corpus, url_hash)
-  if not os.path.exists(mapping_filename):
-    raise RuntimeError('No metadata available for %s.' % url)
+  # no need to to this
+  # url_hash = Hashhex(url)
+  # mapping_filename = '%s/entities/%s.txt' % (corpus, url_hash)
+  # if not os.path.exists(mapping_filename):
+      # raise RuntimeError('No metadata available for %s.' % url)
 
   return url, DownloadUrl(url, corpus)
 
